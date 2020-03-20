@@ -1,10 +1,7 @@
-UFRGS - Department of Astronomy 
-Augusto Carvalho de Sousa, MSc. 
-Email: augusto.sousa@ufrgs.br
-
 PyRAF Installation Tutorial v1.0 - 20-03-2020
-# This tutorial installs PyRAF on Debian-based Linux distributions (tested with Ubuntu 19.10)
 -----------------------------------------------------------------
+This tutorial installs PyRAF on Debian-based Linux distributions (tested with Ubuntu 19.10)
+
 1. Install the C libraries and X11 devtools needed*:
 
 		$ sudo apt-get install libc6:i386 libz1:i386 libncurses5:i386 libbz2-1.0:i386 libuuid1:i386 libxcb1:i386
