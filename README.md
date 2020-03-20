@@ -1,18 +1,16 @@
-UFRGS - Department of Astronomy
+UFRGS - Department of Astronomy 
 Augusto Carvalho de Sousa, MSc. 
 Email: augusto.sousa@ufrgs.br
 
 PyRAF Installation Tutorial v1.0 - 20-03-2020
-
-About: This tutorial installs PyRAF on Debian-based linux distributions (tested with Ubuntu 19.10) and was developed with the help and hints found on StackOverflow and GitHub.
 -----------------------------------------------------------------
 1. Install the C libraries and X11 devtools needed*:
 
-	$ sudo apt-get install libc6:i386 libz1:i386 libncurses5:i386 libbz2-1.0:i386 libuuid1:i386 libxcb1:i386
+		$ sudo apt-get install libc6:i386 libz1:i386 libncurses5:i386 libbz2-1.0:i386 libuuid1:i386 libxcb1:i386
 
-	$ sudo apt-get install libxmu-dev:i386
+		$ sudo apt-get install libxmu-dev:i386
 
-	$ sudo apt-get install libx11-dev
+		$ sudo apt-get install libx11-dev
 
 * Found on github here: https://github.com/astroconda/astroconda/issues/31#issuecomment-257404123
 and on StackOverflow here: https://stackoverflow.com/questions/17911140/trouble-installing-python-package-group-stsci
@@ -47,11 +45,10 @@ and on StackOverflow here: https://stackoverflow.com/questions/17911140/trouble-
 	
 	3.5. Information from "Basic PyRAF", 2014 version by Matthew Bourque:
 
-		'Ensure you have activated the conda environment that you set up in the Computer Setup
-		section. Create a login.cl file to configure IRAF by running mkiraf in your home directory.
-		When asked to Initialize uparm?, answer y. When prompted to Enter terminal
-		type, you should supply xterm.'
-
+	'Ensure you have activated the conda environment that you set up in the Computer Setup
+	section. Create a login.cl file to configure IRAF by running mkiraf in your home directory.
+	When asked to Initialize uparm?, answer y. When prompted to Enter terminal
+	type, you should supply xterm.'
 
 	3.6. After the install, when typing pyraf in the terminal, the system should return something like:
 
