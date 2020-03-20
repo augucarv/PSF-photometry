@@ -52,24 +52,24 @@ and on StackOverflow here: https://stackoverflow.com/questions/17911140/trouble-
 
 	3.6. After the install, when typing pyraf in the terminal, the system should return something like:
 
-$ pyraf
+		$ pyraf
 
-setting terminal type to xterm...
+		setting terminal type to xterm...
 
-   NOAO/IRAF PC-IRAF Revision 2.16 EXPORT Thu May 24 15:41:17 MST 2012
-      This is the EXPORT version of IRAF V2.16 supporting PC systems.
+   		NOAO/IRAF PC-IRAF Revision 2.16 EXPORT Thu May 24 15:41:17 MST 2012
+      		This is the EXPORT version of IRAF V2.16 supporting PC systems.
 
 
-  Welcome to IRAF.  To list the available commands, type ? or ??.  To get
-  detailed information about a command, type `help <command>'.  To run  a
-  command  or  load  a  package,  type  its name.   Type  `bye' to exit a
-  package, or `logout' to get out  of the CL.    Type `news' to find  out
-  what is new in the version of the system you are using.  
+  		Welcome to IRAF.  To list the available commands, type ? or ??.  To get
+  		detailed information about a command, type `help <command>'.  To run  a
+  		command  or  load  a  package,  type  its name.   Type  `bye' to exit a
+  		package, or `logout' to get out  of the CL.    Type `news' to find  out
+  		what is new in the version of the system you are using.  
 
-  Visit http://iraf.net if you have questions or to report problems.
+  		Visit http://iraf.net if you have questions or to report problems.
 
-  The following commands or packages are currently defined:
+  		The following commands or packages are currently defined:
 
-  (Updated on 2013-12-13)
+  		(Updated on 2013-12-13)
 
 
