@@ -1,5 +1,10 @@
-# This code uses Astropy package to match catalogs from SExtractor outputs.
+# This code uses Astropy package to match sources of two catalogs from the same image with two different filters. 
+# The catalogs are obtained by processing a FITS image on SExtractor.
+#
+# INPUTS: two catalogs from the same image with different filters
+# OUTPUTS: a catalog in .txt format and a region file in .reg format to be imported in DS9
 
+#-----------------------------------------------------------------------------------------------------------------------------
 # Importing numpy and plot functions
 import numpy as np 
 from matplotlib import pyplot as plt 
@@ -11,13 +16,10 @@ from astropy.coordinates import SkyCoord, match_coordinates_sky
 from astropy.table import Table, setdiff, vstack
 from astropy.io import ascii
 
-# Importing the catalogs: cat_base is the base catalog whose objects we want to match
-# [!] len(cat_base) > len(cat)
-
-catA= Table.read('/home/augusto/Pilot/NGC1600_MOSAIC_i_gauss_4.0_7x7.reg',
-                           format = 'ascii') # catalog we want to match
-catB = Table.read('/home/augusto/Pilot/NGC1600_MOSAIC_i_mex_4.0_9x9.reg',
-                           format = 'ascii') # base catalog
+catA= Table.read(['YOUR_CATALAOG_DIRECTORY'],
+                           format = 'ascii') # catalog 1
+catB = Table.read(['YOUR_CATALAOG_DIRECTORY'],
+                           format = 'ascii') # catalog 2
 
 if len(catA) > len(catB):
     cat_base = catA
@@ -27,8 +29,8 @@ else:
     cat = catA
 
 # Using SkyCoord to extract the ra and dec columns
-cat1 = SkyCoord(ra=cat_base['ALPHA_J2000'], dec=cat_base['DELTA_J2000'],unit='deg') # gaussian filter
-cat2 = SkyCoord(ra=cat['ALPHA_J2000'], dec=cat['DELTA_J2000'],unit='deg') # mexhat filter
+cat1 = SkyCoord(ra=cat_base['ALPHA_J2000'], dec=cat_base['DELTA_J2000'],unit='deg')
+cat2 = SkyCoord(ra=cat['ALPHA_J2000'], dec=cat['DELTA_J2000'],unit='deg')
 
 # Matching the catalogs
 
@@ -72,8 +74,8 @@ print(len(final_catalog))
 
 # Writing the final catalog
 
-ascii.write(final_catalog, 'MOSAIC_i_final.txt', overwrite=True)
+ascii.write(final_catalog, 'YOUR_CATALOG_NAME.txt', overwrite=True)
 
 # Writing the final catalog as a .reg file to import to DS9
 
-ascii.write(final_catalog['X_IMAGE_DBL','Y_IMAGE_DBL'], 'MOSAIC_i_final.reg', overwrite=True)
+ascii.write(final_catalog['X_IMAGE_DBL','Y_IMAGE_DBL'], 'YOUR_CATALOG_NAME.reg', overwrite=True)
