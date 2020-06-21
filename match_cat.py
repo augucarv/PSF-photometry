@@ -34,7 +34,6 @@ cat2 = SkyCoord(ra=cat['ALPHA_J2000'], dec=cat['DELTA_J2000'],unit='deg')
 
 # Matching the catalogs
 
-#idx, sep, d3d = coord1.match_to_catalog_sky(coord2)
 idx, sep, d3d = match_coordinates_sky(cat2, cat1, nthneighbor=1)
 
 # In the above line of code, idx are the indexes of the closest matches, sep is 
