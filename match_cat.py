@@ -17,9 +17,9 @@ from astropy.table import Table, setdiff, vstack
 from astropy.io import ascii
 
 catA= Table.read(['YOUR_CATALAOG_DIRECTORY'],
-                           format = 'ascii') # catalog 1
+                           format = 'ascii') # catalog A
 catB = Table.read(['YOUR_CATALAOG_DIRECTORY'],
-                           format = 'ascii') # catalog 2
+                           format = 'ascii') # catalog B
 
 if len(catA) > len(catB):
     cat_base = catA
