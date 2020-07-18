@@ -34,7 +34,7 @@ The -m32 instance runs the code as in a 32-bits system, and removing the
 
 5. Run the command ```$ make daophot```.
 
-You should now have a binnary file that is run by ```./daophot```. The prompt should return
+You should now have a binary file that is run by ```./daophot```. The prompt should return
 ```
 Value unacceptable --- please re-enter
 
