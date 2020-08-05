@@ -1,4 +1,4 @@
-# This code uses Astropy package to match hand-picked source positions for PSF
+# This code uses Astropy package to match hand-picked source positions (obtained with DS9) for PSF
 # to SExtractor outputs.
 
 # Importing Astropy packages
