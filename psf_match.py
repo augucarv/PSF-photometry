@@ -9,12 +9,12 @@ from astropy.io import ascii
 
 # Fetching data
 
-catA = Table.read('/home/augusto/GMOS_i_final.txt', format = 'ascii') # SExtractor output
-catB = Table.read('/home/augusto/PSF_pos.reg', format = 'ascii') # PSF positions
+catA = Table.read('MAIN_CATALOG.txt', format = 'ascii') # SExtractor output
+catB = Table.read('PSF_SOURCES.reg', format = 'ascii') # PSF positions
 
 # Converting the PSF positions from pixels to rad,dec
 
-w = WCS('/home/augusto/NGC1600_GMOSS_i.sub.fits') # Getting the WCS info from main file
+w = WCS('YOUR_IMAGE.fits') # Getting the WCS info from main file
 ra,dec = w.all_pix2world(catB[0][:],catB[1][:],1)
 
 # Using SkyCoord to extract the ra and dec columns
