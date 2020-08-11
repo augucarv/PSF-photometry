@@ -6,14 +6,13 @@
 
 #-----------------------------------------------------------------------------------------------------------------------------
 # Importing numpy and plot functions
-import numpy as np 
 from matplotlib import pyplot as plt 
 
 # Importing Astropy packages
 from astropy import units as u
 from astropy import table
 from astropy.coordinates import SkyCoord, match_coordinates_sky
-from astropy.table import Table, setdiff, vstack
+from astropy.table import Table, vstack
 from astropy.io import ascii
 
 catA= Table.read(['YOUR_CATALAOG_DIRECTORY'],
