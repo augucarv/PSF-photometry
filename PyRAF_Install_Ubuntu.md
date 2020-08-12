@@ -36,19 +36,15 @@ and on StackOverflow here: https://stackoverflow.com/questions/17911140/trouble-
 	3.3. Activate the environment:
 
 		$ source activate NAME_OF_ENVIRONMENT
-
-	3.4. Install and run PyRAF:
-
-		$ pip install git+https://github.com/spacetelescope/pyraf.git@master
 	
-	3.5. Information from "Basic PyRAF", 2014 version by Matthew Bourque:
+	3.4. Information from "Basic PyRAF", 2014 version by Matthew Bourque:
 
 	'Ensure you have activated the conda environment that you set up in the Computer Setup
 	section. Create a login.cl file to configure IRAF by running mkiraf in your home directory.
 	When asked to Initialize uparm?, answer y. When prompted to Enter terminal
 	type, you should supply xterm.'
 
-	3.6. After the install, when typing pyraf in the terminal, the system should return something like:
+	3.5. After the install, when typing pyraf in the terminal, the system should return something like:
 
 		$ pyraf
 
