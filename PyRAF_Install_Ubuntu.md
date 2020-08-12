@@ -1,4 +1,4 @@
-PyRAF Installation Tutorial v1.0 - 20-03-2020
+PyRAF Installation Tutorial v1.1 - 12-08-2020
 -----------------------------------------------------------------
 This tutorial installs PyRAF on Debian-based Linux distributions (tested with Ubuntu 19.10)
 
