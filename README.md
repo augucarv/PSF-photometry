@@ -106,4 +106,4 @@ Some will be marked with a question mark, others as defective, others with an as
 
 As you can see, the errors are somewhat big. This is because not enough sources were selected. As you select more sources, these values should get smaller and smaller, so make sure you pick at least 50 points, knowing that the more you have, the better your final results will be.
 
-7. Now you can ```exit``` DAOPHOT and run ```allstar```, which will generate the residual image for you. Attach the original .fits file and keep attaching the files as the terminal requests them. Generally you only need to keep pressing ```ENTER``` until the terminal stops asking you for inputs. It should now return your residual image and you're done for now. :)
+7. Now you can ```exit``` DAOPHOT and run ```allstar```, which will generate the residual image for you. Attach the original .fits file and keep attaching the files as the terminal requests them. Generally you only need to keep pressing ```ENTER``` until the terminal stops asking you for inputs. It might take some time calculating things but at the end it should return the residual image and you're done for now. :)
