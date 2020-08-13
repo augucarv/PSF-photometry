@@ -40,7 +40,7 @@ The top picture is clearly not a good match. While the middle one might seem a g
 
 4. So far you have generated three files: the two catalogs from ```source-extractor``` and the ```PSF_pos.reg``` from DS9. Now you need to: (1) cross-match the two outputs from ```source-extractor``` and generate a single catalog from those and (2) map your hand-picked sources from ```PSF_pos.reg``` to this newly-generated catalog. To do so, run either ```all_match.py``` or ```match_cat.py``` + ```psf_match.py```. The first option (```all_match.py```) is handier and is just a merge of the last two, but you're welcome to play around with all of them. Your main outputs here are the .coo and the .lst file, which will be used as inputs to DAOPHOT.
 
-5. Run ```daophot``` and ```attach``` your image. Then use ```finder``` to generate a .coo file. Name it diffrentely than the one generated with ```all_match.py```. This step is needed because you need to replace the header in the first .coo file. The header of this latter one is 
+5. Run ```daophot``` and ```attach``` your image. Then use ```find``` to generate a .coo file. Name it diffrentely than the one generated with ```all_match.py```. This step is needed because you need to replace the header in the first .coo file. The header of this latter one is 
 
 ```
 NUMBER X_IMAGE_DBL Y_IMAGE_DBL
