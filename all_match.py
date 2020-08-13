@@ -12,10 +12,10 @@ from astropy.wcs import WCS
 
 # INPUTS
 
-directory = "/home/augusto/NGC1600/" # Working directory
-name = "GMOSS_i.fits" # FITS file
-seo1 = name[:-5]+"_gauss_5.0_9x9.txt" # SExtractor Output 1
-seo2 = name[:-5]+"_mexhat_5.0_11x11.txt" # SExtractor Output 2
+directory = "YOUR_DIRECTORY" # Working directory
+name = "FILE_NAME.fits" # FITS file
+seo1 = name[:-5]+"FILTER_1_NAME.txt" # SExtractor Output 1
+seo2 = name[:-5]+"FILTER_2_NAME.txt" # SExtractor Output 2
 
 # OUTPUTS
 
@@ -79,9 +79,6 @@ ascii.write(final_catalog['X_IMAGE_DBL','Y_IMAGE_DBL'], directory+output_name+"_
 ascii.write(final_catalog['NUMBER','X_IMAGE_DBL','Y_IMAGE_DBL'], directory+output_name+".coo", overwrite=True)
 
 # PSF match ###################################################################
-
-# This code uses Astropy package to match hand-picked source positions for PSF
-# to SExtractor outputs.
 
 # Fetching data
 
