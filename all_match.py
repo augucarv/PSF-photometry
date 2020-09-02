@@ -1,31 +1,23 @@
 # This code merges 'match_cat.py' and 'psf_match.py'
 
+# This code uses Astropy package to match catalogs from SExtractor outputs.
+
 # Importing Astropy packages
-from astropy import units as u
-from astropy import table
-from astropy.coordinates import SkyCoord, match_coordinates_sky
 from astropy.table import Table, vstack
 from astropy.io import ascii
-from astropy.wcs import WCS
-
-# Defining the name of the .FITS file that will be worked with
-
-# INPUTS
-
-directory = "YOUR_DIRECTORY" # Working directory
-name = "FILE_NAME.fits" # FITS file
-seo1 = name[:-5]+"FILTER_1_NAME.txt" # SExtractor Output 1
-seo2 = name[:-5]+"FILTER_2_NAME.txt" # SExtractor Output 2
-
-# OUTPUTS
-
-output_name = name[:-5]
+import numpy as np
+from scipy.spatial.distance import cdist
 
 # Importing the catalogs: cat_base is the base catalog whose objects we want to match
 # [!] len(cat_base) > len(cat)
 
-catA = Table.read(directory+seo1, format = 'ascii') # catalog we want to match
-catB = Table.read(directory+seo2, format = 'ascii') # base catalog
+directory = "/home/augusto/NGC1600/" # Working directory
+img_name = "GMOSS_i.fits" # FITS file
+seo1 = "def.cat" # SExtractor Output 1
+seo2 = "mex.cat" # SExtractor Output 2
+
+catA = Table.read(directory+seo1, format = 'ascii')
+catB = Table.read(directory+seo2,format = 'ascii') 
 
 if len(catA) > len(catB):
     cat_base = catA
@@ -34,64 +26,47 @@ else:
     cat_base = catB
     cat = catA
 
-# Using SkyCoord to extract the ra and dec columns
-cat1 = SkyCoord(ra=cat_base['ALPHA_J2000'], dec=cat_base['DELTA_J2000'],unit='deg') # gaussian filter
-cat2 = SkyCoord(ra=cat['ALPHA_J2000'], dec=cat['DELTA_J2000'],unit='deg') # mexhat filter
-
 # Matching the catalogs
 
-#idx, sep, d3d = coord1.match_to_catalog_sky(coord2)
+A = np.array([cat['X_IMAGE_DBL'],cat['Y_IMAGE_DBL']]).T
+B = np.array([cat_base['X_IMAGE_DBL'],cat_base['Y_IMAGE_DBL']]).T
+dist = cdist(A, B)
+idx = np.argmin(dist > 3, axis=1)
+idx2 = idx[idx>0]
+matches = B[idx2, :] # checking the matches
+cat_base.remove_rows(idx2) # Removing the matches from B
 
-idx, sep, d3d = match_coordinates_sky(cat2, cat1, nthneighbor=1)
-matches = cat1[idx]
+# Appending catA to new catB to create the final catalog
 
-# Getting the indexes of the matched objects to pass these into the original catalog
-
-max_sep = 0.1*u.arcsec # Maximum separation constraint
-idx1, sep1, d3d1 = match_coordinates_sky(matches[sep > max_sep], cat2, nthneighbor=1)
-
-# Passing the indexes into the original catalog
-
-cat_updated = table.unique(cat[idx1],keys='NUMBER') # This catalog contains only the non-matches between cat and cat_base
-print(str('The number of objects in cat that are not in cat_base is'))
-print(len(cat_updated))
-
-print(str('The first 5 items of the updated catalog are'))
-print(cat_updated[:5])
-
-# Merging cat_updated and cat_base
-
-final_catalog = vstack([cat_base, cat_updated])
-
-print(str('The number of objects in the final catalog is'))
-print(len(final_catalog))
-
-# Writing the final catalog
-
-ascii.write(final_catalog, directory+output_name+"_final.txt", overwrite=True)
+final_catalog = vstack([cat_base,cat])
+final_catalog['NUMBER']=np.arange(1,len(final_catalog)+1) # rearranging the id of the items
 
 # Writing the final catalog as a .reg file to import to DS9
 
-ascii.write(final_catalog['X_IMAGE_DBL','Y_IMAGE_DBL'], directory+output_name+"_final.reg", overwrite=True)
+ascii.write(final_catalog, directory+img_name[:-5]+'.txt', overwrite=True)
+ascii.write(final_catalog['NUMBER','X_IMAGE_DBL','Y_IMAGE_DBL'], directory+img_name[:-5]+'.coo', overwrite=True)
+ascii.write(final_catalog['X_IMAGE_DBL','Y_IMAGE_DBL'],directory+'final.reg', overwrite=True) # check .reg file
 
-# Writing the final catalog as a .coo as input to DAOPHOT
+########## .lst file #########################################################
 
-ascii.write(final_catalog['NUMBER','X_IMAGE_DBL','Y_IMAGE_DBL'], directory+output_name+".coo", overwrite=True)
+from astropy.wcs import WCS
+from astropy.coordinates import SkyCoord, match_coordinates_sky
 
-# PSF match ###################################################################
+catalog_name = directory+img_name[:-5]+'.txt'
+psf_name = 'PSF_pos.reg'
 
 # Fetching data
 
-catA = Table.read(directory+output_name+"_final.txt", format = 'ascii') # SExtractor output
-catB = Table.read(directory+"PSF_pos.reg", format = 'ascii') # PSF positions
+catC = Table.read(catalog_name, format = 'ascii') # SExtractor output
+catD = Table.read(directory+psf_name, format = 'ascii') # PSF positions
 
 # Converting the PSF positions from pixels to rad,dec
 
-w = WCS(directory+name) # Getting the WCS info from main file
-ra,dec = w.all_pix2world(catB[0][:],catB[1][:],1)
+w = WCS(directory+img_name) # Getting the WCS info from main file
+ra,dec = w.all_pix2world(catD[0][:],catD[1][:],1)
 
 # Using SkyCoord to extract the ra and dec columns
-coordA = SkyCoord(ra=catA['ALPHA_J2000'], dec=catA['DELTA_J2000'],unit='deg')
+coordA = SkyCoord(ra=catC['ALPHA_J2000'], dec=catC['DELTA_J2000'],unit='deg')
 coordB = SkyCoord(ra, dec,unit='deg') 
 
 # Matching the catalogs
@@ -99,16 +74,8 @@ coordB = SkyCoord(ra, dec,unit='deg')
 #idx, sep, d3d = coord1.match_to_catalog_sky(coord2)
 idx, sep, d3d = match_coordinates_sky(coordB, coordA, nthneighbor=1)
 
-psf_match_cat = catA[idx]
+psf_match_cat = catC[idx]
 
-# Writing the final catalog
+# Writing the final catalog as a .lst for DAOPHOT
 
-ascii.write(psf_match_cat, directory+output_name+"_PSF_final.txt", overwrite=True)
-
-# Writing the final catalog as a .reg file to import to DS9
-
-ascii.write(psf_match_cat['X_IMAGE_DBL','Y_IMAGE_DBL'], directory+output_name+"_PSF_final.reg", overwrite=True)
-
-# Writing the final catalog as a .lst as input to DAOPHOT
-
-ascii.write(psf_match_cat['NUMBER','X_IMAGE_DBL','Y_IMAGE_DBL'], directory+output_name+".lst", overwrite=True)
+ascii.write(psf_match_cat['NUMBER','X_IMAGE_DBL','Y_IMAGE_DBL'], directory+img_name[:-5]+'.lst', overwrite=True)
