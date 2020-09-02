@@ -11,8 +11,8 @@ from scipy.spatial.distance import cdist
 # Importing the catalogs: cat_base is the base catalog whose objects we want to match
 # [!] len(cat_base) > len(cat)
 
-directory = "/home/augusto/NGC1600/" # Working directory
-img_name = "GMOSS_i.fits" # FITS file
+directory = "[WORK_DIR]" # Working directory
+img_name = "[FILE_NAME].fits" # FITS file
 seo1 = "def.cat" # SExtractor Output 1
 seo2 = "mex.cat" # SExtractor Output 2
 
