@@ -1,4 +1,3 @@
-# This code uses Astropy package to match catalogs from SExtractor outputs.
 
 # Importing numpy and plot functions
 from matplotlib import pyplot as plt 
@@ -11,18 +10,16 @@ from astropy.table import Table, vstack
 from astropy.io import ascii
 import numpy as np
 
-directory = "/home/augusto/" # Working directory
-img_name = "MOSAIC_g.fits" # FITS file
+directory = "WORK_DIR" # Working directory
+img_name = "IMG.fits" # FITS file
 seo1 = "def.cat" # SExtractor Output 1
 seo2 = "mex.cat" # SExtractor Output 2
 
 # Importing the catalogs: cat_base is the base catalog whose objects we want to match
 # [!] len(cat_base) > len(cat)
 
-catA= Table.read('/home/augusto/def.cat',
-                           format = 'ascii') # catalog we want to match
-catB = Table.read('/home/augusto/mex.cat',
-                           format = 'ascii') # base catalog
+catA = Table.read(directory+seo1, format = 'ascii') # catalog we want to match
+catB = Table.read(directory+seo2,format = 'ascii') # base catalog
 
 if len(catA) > len(catB):
     cat_base = catA
@@ -32,8 +29,8 @@ else:
     cat = catA
 
 # Using SkyCoord to extract the ra and dec columns
-cat1 = SkyCoord(ra=cat_base['ALPHA_J2000'], dec=cat_base['DELTA_J2000'],unit='deg') # gaussian filter
-cat2 = SkyCoord(ra=cat['ALPHA_J2000'], dec=cat['DELTA_J2000'],unit='deg') # mexhat filter
+cat1 = SkyCoord(ra=cat_base['ALPHA_J2000'], dec=cat_base['DELTA_J2000'],unit='deg') # filter 1
+cat2 = SkyCoord(ra=cat['ALPHA_J2000'], dec=cat['DELTA_J2000'],unit='deg') # filter 2
 
 # Matching the catalogs
 
@@ -77,7 +74,7 @@ from astropy.wcs import WCS
 from astropy.coordinates import SkyCoord, match_coordinates_sky
 
 catalog_name = directory+img_name[:-5]+'.txt'
-psf_name = 'PSF_pos.reg'
+psf_name = 'PSF_pos.reg' # Sources for PSF calculation (see README)
 
 # Fetching data
 
