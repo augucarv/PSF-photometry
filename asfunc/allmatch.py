@@ -72,4 +72,4 @@ def allmatch(file_name,cat1,cat2,sep,wdir):
 
     ascii.write(final_catalog, wdir+img_name[:-5]+'.txt', overwrite=True)
     ascii.write(final_catalog['NUMBER','X_IMAGE_DBL','Y_IMAGE_DBL'], wdir+img_name[:-5]+'.coo', overwrite=True)
-    ascii.write(final_catalog['X_IMAGE_DBL','Y_IMAGE_DBL'],wdir+img_name[:-5]+'.reg', overwrite=True)
+    ascii.write(final_catalog['X_IMAGE_DBL','Y_IMAGE_DBL'],wdir+img_name[:-5]+'.reg', format='no_header',overwrite=True)
