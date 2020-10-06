@@ -14,6 +14,8 @@ This repository contains codes and tutorials useful for astrophysics and astrono
 
 7. The file ```all_match.py``` combines ```match_cat.py``` and ```psf_match.py```  in a single script.
 
+8. The file `cmdmaker.py` creates color-magnitude diagrams from `.raw` files (see item 8 of the guide below).
+
 # PSF photometry: Step-by-step
 
 This guide considers that you have already have [installed SExtractor](https://www.astromatic.net/software/sextractor) and [DAOPHOT](http://www.star.bris.ac.uk/~mbt/daophot/).
